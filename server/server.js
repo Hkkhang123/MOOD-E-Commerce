@@ -19,6 +19,9 @@ app.use(express.json());
 app.use(
   cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"] })
 );
+const port = process.env.PORT;
+const __dirname = path.resolve();
+
 
 app.get("/", (req, res) => {
   res.send("HELLO WORLD");
@@ -33,7 +36,13 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api", subcriberRoutes);
 app.use("/api/admin", adminRoutes);
 
-const port = process.env.PORT;
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv"
+import path from "path"
+
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/product.routes.js";
@@ -17,6 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 
+
 app.use("/api/auth",authRoutes);
 app.use("/api/products",productRoutes);
 app.use("/api/cart", cartRoutes)
@@ -25,6 +28,7 @@ app.use("/api/order",orderRoutes)
 app.use("/api/upload", uploadRoutes)
 app.use("/api", subcriberRoutes)
 app.use("/api/admin", adminRoutes)
+
 
 const port = process.env.PORT;
 

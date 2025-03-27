@@ -10,7 +10,7 @@ const FilterSidebar = () => {
     gender: "",
     colors: "",
     size: [],
-    materials: [],
+    material: [],
     brand: [],
     minPrice: 0,
     maxPrice: 1000000,
@@ -37,8 +37,8 @@ const FilterSidebar = () => {
 
   const size = ["S", "M", "L", "XL", "XXL"]
 
-  const materials = [
-    "Vải cotton",
+  const material = [
+    "Vải Cotton",
     "Len",
     "Vải Polyester",
     "Lụa",
@@ -63,7 +63,7 @@ const FilterSidebar = () => {
       gender: param.gender || "",
       colors: param.colors || "",
       size: param.size ? param.size.split(",") : [],
-      materials: param.materials ? param.materials.split(",") : [],
+      material: param.materials ? param.materials.split(",") : [],
       brand: param.brand ? param.brand.split(",") : [],
       minPrice: param.minPrice || 0,
       maxPrice: param.maxPrice || 10000000
@@ -190,7 +190,7 @@ const FilterSidebar = () => {
         {/* Material Filter */}
         <div className="mb-6">
             <label className='block text-gray-600 font-medium mb-2'>Vật liệu</label>
-            {materials.map((material) => (
+            {material.map((material) => (
               <div 
                 key={material}
                 className="flex items-center mb-1">

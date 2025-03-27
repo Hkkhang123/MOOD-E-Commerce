@@ -13,7 +13,7 @@ export const createProducts = async (req, res) => {
       size,
       colors,
       collections,
-      materials,
+      material,
       gender,
       sku,
       image,
@@ -51,7 +51,7 @@ export const createProducts = async (req, res) => {
       size,
       colors,
       collections,
-      materials,
+      material,
       gender,
       sku,
       image: uploadedImages,
@@ -82,7 +82,7 @@ export const updateProduct = async (req, res) => {
       size,
       colors,
       collections,
-      materials,
+      material,
       gender,
       sku,
       image,
@@ -103,9 +103,9 @@ export const updateProduct = async (req, res) => {
       product.category = category || product.category;
       product.brand = brand || product.brand;
       product.size = size || product.size;
-      product.colors = colors || product.colors;
+      product.colors = colors || product.colors; 
       product.collections = collections || product.collections;
-      product.materials = materials || product.materials;
+      product.material = material || product.materials;
       product.gender = gender || product.gender;
       product.sku = sku || product.sku;
       product.image = image || product.image;
@@ -153,7 +153,7 @@ export const getProducts = async (req, res) => {
       sortBy,
       search,
       category,
-      materials,
+      material,
       brand,
       limit,
     } = req.query;
@@ -186,8 +186,8 @@ export const getProducts = async (req, res) => {
       query.gender = gender;
     }
 
-    if (materials) {
-      query.materials = { $in: materials.split(",") };
+    if (material) {
+      query.material = { $in: material.split(",") };
     }
 
     if (brand) {

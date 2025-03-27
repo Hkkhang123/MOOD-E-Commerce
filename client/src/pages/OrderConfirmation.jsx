@@ -35,12 +35,12 @@ const OrderConfirmation = () => {
                     {/* Order Id vaf Date */}
                     <div>
                         <h2 className="text-xl font-semibold">Id đơn hàng: {checkout._id}</h2>
-                        <p className="text-gray-500">Ngày: {new Date(checkout.createAt).toLocaleDateString("vi-VN")}</p>
+                        <p className="text-gray-500">Ngày: {new Date(checkout.createdAt).toLocaleDateString("vi-VN")}</p>
                     </div>
                     {/* Estimate Deliviery */}
                     <div>
                         <p className="text-emerald-700 text-sm"> 
-                            Dự kiến giao hàng: {" "} {caculateEstimateDelivery(checkout.createAt)}
+                            Dự kiến giao hàng: {" "} {caculateEstimateDelivery(checkout.createdAt)}
                         </p>
                     </div>
                 </div>

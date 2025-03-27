@@ -8,7 +8,7 @@ export const fetchProductsByFilter = createAsyncThunk(
     size,
     color,
     gender,
-    minPrice,
+    minPrice, 
     maxPrice,
     sortBy,
     search,

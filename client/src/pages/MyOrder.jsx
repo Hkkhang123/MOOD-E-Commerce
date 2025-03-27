@@ -56,9 +56,9 @@ const MyOrder = () => {
                     #{order._id}
                   </td>
                   <td className="">
-                    {new Date(order.createAt).toLocaleDateString("vi-VN")}{" "}
+                    {new Date(order.createdAt).toLocaleDateString("vi-VN")}{" "}
                     <br />
-                    {new Date(order.createAt).toLocaleTimeString("vi-VN")}
+                    {new Date(order.createdAt).toLocaleTimeString("vi-VN")}
                   </td>
                   <td className="py-2 px-2 sm:py-4 sm:px-4">
                     {order.shippingAddress

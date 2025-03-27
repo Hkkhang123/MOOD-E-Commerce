@@ -17,7 +17,7 @@ dotenv.config()
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin:"*"}));
+    origin:"https://mood-e-commerce.vercel.app"}));
 
 app.get("/", (req, res) => {
     res.send("HELLO WORLD");

@@ -1,17 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 
 export const fetchAllUsers = createAsyncThunk(
   "admin/fetchAllUsers",
   async () => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/admin`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
+    const response = await axiosInstance.get("/api/admin");
     return response.data;
   }
 );
@@ -20,15 +13,7 @@ export const createUser = createAsyncThunk(
   "admin/createUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin`,
-        userData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
-        }
-      );
+      const response = await axiosInstance.post("/api/admin", userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -39,42 +24,20 @@ export const createUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   "admin/updateUser",
   async ({ id, name, email, role }) => {
-    const response = await axios.put(
-      `${import.meta.env.VITE_BACKEND_URL}/api/admin/${id}`,
-      { name, email, role },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
+    const response = await axiosInstance.put(`/api/admin/${id}`, { name, email, role });
     return response.data.user;
   }
 );
 
 export const deleteUser = createAsyncThunk("admin/deleteUser", async (id) => {
-  const response = await axios.delete(
-    `${import.meta.env.VITE_BACKEND_URL}/api/admin/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-      },
-    }
-  );
+  const response = await axiosInstance.delete(`/api/admin/${id}`);
   return id;
 });
 
 export const fetchAdminProducts = createAsyncThunk(
   "admin/fetchAdminProducts",
   async () => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/admin/product`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
+    const response = await axiosInstance.get("/api/admin/product");
     return response.data;
   }
 );
@@ -82,15 +45,7 @@ export const fetchAdminProducts = createAsyncThunk(
 export const createProduct = createAsyncThunk(
   "admin/createProduct",
   async (productData) => {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/products`,
-      productData,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
+    const response = await axiosInstance.post("/api/products", productData);
     return response.data;
   }
 );
@@ -98,15 +53,7 @@ export const createProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
   "admin/updateProduct",
   async ({ id, productData }) => {
-    const response = await axios.put(
-      `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
-      productData,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
+    const response = await axiosInstance.put(`/api/products/${id}`, productData);
     return response.data;
   }
 );
@@ -114,14 +61,7 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "admin/deleteProduct",
   async (id) => {
-    await axios.delete(
-      `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
+    await axiosInstance.delete(`/api/products/${id}`);
     return id;
   }
 );
@@ -130,15 +70,7 @@ export const fetchAllOrder = createAsyncThunk(
   "admin/fetchAllOrder",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/order`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
-        }
-      );
-
+      const response = await axiosInstance.get("/api/admin/order");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -150,15 +82,7 @@ export const updateOrder = createAsyncThunk(
   "admin/updateOrder",
   async ({ id, status }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/order/${id}`,
-        { status },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
-        }
-      );
+      const response = await axiosInstance.put(`/api/admin/order/${id}`, { status });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -170,14 +94,7 @@ export const deleteOrder = createAsyncThunk(
   "admin/deleteOrder",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/order/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
-        }
-      );
+      const response = await axiosInstance.delete(`/api/admin/order/${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

@@ -8,7 +8,7 @@ import FeaturedCollection from '../component/Product/FeaturedCollection'
 import FeaturedSection from '../component/Product/FeaturedSections'
 import {useDispatch, useSelector} from 'react-redux'
 import { fetchProductsByFilter } from '../redux/slices/productSlice'
-import axios from 'axios'
+import axiosInstance from '../utils/axios'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const Home = () => {
     }))
     const fetchBestSeller = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/best-seller`)
+        const response = await axiosInstance.get('/api/products/best-seller')
         setBestSeller(response.data)
       } catch (error) {
         console.log(error);

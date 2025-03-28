@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PaypalButton from "./PaypalButton";
 import { useDispatch, useSelector } from "react-redux";
 import { createCheckout } from "../../redux/slices/checkoutSlice";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,19 +46,14 @@ const Checkout = () => {
 
   const handlePaymentSuccess = async (details) => {
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/pay`,
+      const response = await axiosInstance.put(
+        `/checkout/${checkoutId}/pay`,
         {
           paymentStatus: "Đã thanh toán",
           paymentDetail: details,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
         }
       );
-        await handleFinalizeCheckout(checkoutId);
+      await handleFinalizeCheckout(checkoutId);
     } catch (error) {
       console.log(error);
     }
@@ -66,18 +61,11 @@ const Checkout = () => {
 
   const handleFinalizeCheckout = async (checkoutId) => {
     try {
-      const response = await axios.post(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/api/checkout/${checkoutId}/finalize`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
-        }
+      const response = await axiosInstance.post(
+        `/checkout/${checkoutId}/finalize`,
+        {}
       );
-        navigate("/order-confirmation");
+      navigate("/order-confirmation");
     } catch (error) {
       console.log(error);
     }

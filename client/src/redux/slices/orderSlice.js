@@ -1,45 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 
 export const fetchUserOrders = createAsyncThunk(
     "order/fetchUserOrders",
     async (_, { rejectWithValue }) => {
         try {
-        const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/order/my-order`,
-            {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-            },
-            }
-        );
-        console.log(response.data);
-        return response.data;
+            const response = await axiosInstance.get("/api/order/my-order");
+            return response.data;
         } catch (error) {
-        return rejectWithValue(error.response.data);
+            return rejectWithValue(error.response.data);
         }
     }
-)
+);
 
 export const fetchOrderDetails = createAsyncThunk(
     "order/fetchOrderDetails",
     async (orderId, { rejectWithValue }) => {
         try {
-        const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/order/${orderId}`,
-            {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-            },
-            }
-        );
-        console.log(response.data);
-        return response.data;
+            const response = await axiosInstance.get(`/api/order/${orderId}`);
+            return response.data;
         } catch (error) {
-        return rejectWithValue(error.response.data);
+            return rejectWithValue(error.response.data);
         }
     }   
-)
+);
 
 const orderSlice = createSlice({
     name: "orders",

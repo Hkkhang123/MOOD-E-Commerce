@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
+import ngrok from "@ngrok/ngrok";
 
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(
   cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"] })
 );
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
 
@@ -48,3 +49,5 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
   connectDB();
 });
+
+ngrok.connect({ addr: port, authtoken_from_env: true, domain: "legible-loudly-bengal.ngrok-free.app" }).then(listener => console.log(`Ingress established at: ${listener.url()}`));

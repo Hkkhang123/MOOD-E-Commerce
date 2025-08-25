@@ -50,4 +50,4 @@ app.listen(port, () => {
   connectDB();
 });
 
-ngrok.connect({ addr: port, authtoken_from_env: true, domain: "legible-loudly-bengal.ngrok-free.app" }).then(listener => console.log(`Ingress established at: ${listener.url()}`));
+//ngrok.connect({ addr: port, authtoken_from_env: true, domain: "legible-loudly-bengal.ngrok-free.app" }).then(listener => console.log(`Ingress established at: ${listener.url()}`));

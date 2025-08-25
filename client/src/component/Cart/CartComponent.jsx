@@ -36,11 +36,13 @@ const CartComponent = ({ cart, userId, guestId }) => {
           key={item}
         >
           <div className="flex items-start">
-            <img
-              className="w-20 h-24 object-cover rounded mr-4"
-              src={product.image}
-              alt={product.name}
-            />
+            {product.image ? (
+              <img
+                className="w-20 h-24 object-cover rounded mr-4"
+                src={product.image}
+                alt={product.name}
+              />
+            ) : null}
             <div>
               <h3>{product.name}</h3>
               <p className="text-sm text-gray-500">

@@ -240,11 +240,13 @@ const Checkout = () => {
           {cart.products.map((item, index) => (
             <div key={index} className="flex items-start justify-between py-2 ">
               <div className="flex items-start">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-20 h-24 object-cover mr-4"
-                />
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-20 h-24 object-cover mr-4"
+                  />
+                ) : null}
                 <div>
                   <h3 className="text-md">{item.name}</h3>
                   <p className="text-gray-500">Kích cỡ: {item.size}</p>

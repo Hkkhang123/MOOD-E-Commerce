@@ -13,16 +13,18 @@ const NewArrivals = () => {
     const [NewArrivals, setNewArrivals] = useState([])
 
     useEffect(() => {
-        const fetchNewArrivals = async () => {
-            try {
-                const response = await axiosInstance.get('/api/products/new-arrival')
-                setNewArrivals(response.data)
-            } catch (error) {
-                console.log(error)
-            }
+    const fetchNewArrivals = async () => {
+        try {
+            const response = await axiosInstance.get('/api/products/new-arrival');
+            // Đảm bảo luôn là array
+            setNewArrivals(Array.isArray(response.data) ? response.data : []);
+        } catch (error) {
+            console.log(error);
+            setNewArrivals([]); // fallback nếu lỗi
         }
-        fetchNewArrivals()
-    }, [])
+    };
+    fetchNewArrivals();
+}, []);
     const handleMouseDown = (e) => {
         setIsDragging(true);
         setStartX(e.pageX - scrollRef.current.offsetLeft);
@@ -106,11 +108,13 @@ const NewArrivals = () => {
             {NewArrivals.map((product) => (
 
                 <div key={product._id} className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative">
-                    <img 
-                        src={product.image[0]?.url} 
-                        alt={product.image[0]?.altText} 
-                        className='w-full h-[500px] object-cover rounded-lg'
-                        draggable="false"/>
+                    {product.image && product.image[0]?.url ? (
+                        <img 
+                            src={product.image[0].url} 
+                            alt={product.image[0]?.altText || product.name}
+                            className='w-full h-[500px] object-cover rounded-lg'
+                            draggable="false"/>
+                    ) : null}
                     <div className="absolute bottom-0 left-0 right-0 bg-opacity-50 backdrop-blur-md p-4 text-white rounded-b-lg">
                         <Link to={`/product/${product._id}`} className='block'>
                             <h4 className="font-medium">{product.name}</h4>

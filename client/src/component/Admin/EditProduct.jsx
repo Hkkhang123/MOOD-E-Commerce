@@ -182,11 +182,13 @@ useEffect(() => {
           <div className="flex gap-4 mt-4">
             {productData.image.map((image, index) => (
               <div key={index}>
-                <img
-                  src={image.url}
-                  alt={image.altText || "ảnh sản phẩm"}
-                  className="size-20 object-cover rounded-md shadow-md"
-                />
+                {image.url ? (
+                  <img
+                    src={image.url}
+                    alt={image.altText || "ảnh sản phẩm"}
+                    className="size-20 object-cover rounded-md shadow-md"
+                  />
+                ) : null}
               </div>
             ))}
           </div>
